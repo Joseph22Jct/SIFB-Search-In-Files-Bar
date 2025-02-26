@@ -20,3 +20,4 @@ go to the Project Tab > Project Settings... > Plugins tab > Enable Search In Fil
 </p>
 
 <h1>Enjoy!</h1>
+<p>If you like this plugin, you can give me a tip! https://ko-fi.com/yonodusk </p>
