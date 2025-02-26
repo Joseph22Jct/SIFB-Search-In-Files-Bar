@@ -1,4 +1,4 @@
-<h1>Introducing Godot plugin - Search In Files Bar or SIFB for short. </h1>
+<h1>Introducing Godot plugin - Search In Files Bar (SIFB).</h1>
 
 ![showcase](https://github.com/user-attachments/assets/f31580df-ac71-457a-9b94-e557b784d17f)
 
