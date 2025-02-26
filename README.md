@@ -3,7 +3,7 @@
 ![showcase](https://github.com/user-attachments/assets/f31580df-ac71-457a-9b94-e557b784d17f)
 
 <p>
-This Godot plugin was created because I do not like the built-in Godot's "search in files" solution. <br/>
+This Godot plugin was created because I wanted a more robust search solution for finding code in files. <br/>
 The plugin aims to quickly and comfortable browse to files much easier, <b>Including built-in scripts</b>
 </p>
 
