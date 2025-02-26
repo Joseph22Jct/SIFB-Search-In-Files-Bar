@@ -1,0 +1,137 @@
+[gd_scene load_steps=3 format=3 uid="uid://67x0eexcg5gd"]
+
+[ext_resource type="Script" path="res://addons/SIFB/control_sifb.gd" id="1_1pev1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_056ql"]
+bg_color = Color(0.145098, 0.168627, 0.203922, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Sifb" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_1pev1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Search Bar" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Search Bar"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Search Bar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SearchLineEdit" type="LineEdit" parent="VBoxContainer/Search Bar/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SearchButton" type="Button" parent="VBoxContainer/Search Bar/HBoxContainer"]
+layout_mode = 2
+text = "Search!"
+
+[node name="WholeWords" type="CheckBox" parent="VBoxContainer/Search Bar/HBoxContainer"]
+layout_mode = 2
+text = "Whole Words"
+
+[node name="MatchCase" type="CheckBox" parent="VBoxContainer/Search Bar/HBoxContainer"]
+layout_mode = 2
+text = "Match Case"
+
+[node name="Filters" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Filters"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Filters/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Filter: "
+
+[node name="GDFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ".gd"
+
+[node name="GDShaderFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ".gdshader"
+
+[node name="TxtFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ".txt"
+
+[node name="JSONFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ".JSON"
+
+[node name="BuiltInScript" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Built-In Script"
+
+[node name="IncludeAddon" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Include Addons"
+
+[node name="Divider" type="Control" parent="VBoxContainer/Filters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Filters/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Limit Searches:"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 1
+max_value = 150.0
+value = 50.0
+alignment = 1
+
+[node name="Results" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Results"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_056ql")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Results/PanelContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../Search Bar/HBoxContainer/MarginContainer/SearchLineEdit")
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+scroll_deadzone = 8
+
+[node name="ResultList" type="VBoxContainer" parent="VBoxContainer/Results/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../../../../Search Bar/HBoxContainer/MarginContainer/SearchLineEdit")
+
+[node name="NoResult" type="Label" parent="VBoxContainer/Results/PanelContainer/ScrollContainer/ResultList"]
+modulate = Color(0.2526, 0.283793, 0.341708, 1)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 48
+text = "-NO RESULTS-"
+horizontal_alignment = 1
+vertical_alignment = 1

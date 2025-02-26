@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1740531866
+::res://addons/::1739300048
+::res://addons/SIFB/::1740531875
+control_sifb.gd::GDScript::-1::1740528013::0::1::::SIFB_ControlNode<>MarginContainer<>::
+opening_Shortcut.tres::Shortcut::365797516596350857::1740531875::0::1::::<><>::
+plugin.cfg::TextFile::-1::1738888450::0::1::::<><>::
+result_base.gd::GDScript::-1::1740459288::0::1::::SIFB_ResultBase<>PanelContainer<>::
+result_base.tscn::PackedScene::195570647977010835::1740531875::0::1::::<><>::res://addons/SIFB/result_base.gd
+search_shortcut.tres::Shortcut::5703117086903649051::1740531875::0::1::::<><>::
+SIFB.gd::GDScript::-1::1740528058::0::1::::<>EditorPlugin<>::
+SIFB.tscn::PackedScene::2243355593910744183::1740527638::0::1::::<><>::res://addons/SIFB/control_sifb.gd
+SIFB_ResultStruct.gd::GDScript::-1::1740260035::0::1::::SIFB_ResultStruct<>Node<>::
