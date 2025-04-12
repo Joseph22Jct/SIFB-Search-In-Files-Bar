@@ -1,6 +1,8 @@
 @tool
 extends EditorPlugin
 
+class_name SIFB_Plugin
+
 var ScriptEditorInstance : ScriptEditor
 var FileSystemDockInstance : FileSystemDock
 var EditorFileSystemInstance : EditorFileSystem
@@ -8,11 +10,12 @@ var EditorFileSystemInstance : EditorFileSystem
 var NodeBase = preload("res://addons/SIFB/SIFB.tscn")
 var NodeInstance:SIFB_ControlNode
 var fileExtensionsThatCanBeLooked = [".gd", ".gdshader", ".txt", ".json", ".tscn"]
-var openingShortcut : Shortcut = load("res://addons/SIFB/opening_Shortcut.tres")
-var searchShortcut : Shortcut = load("res://addons/SIFB/search_shortcut.tres")
+var openingShortcut : Shortcut = Shortcut.new()
+var searchShortcut : Shortcut = Shortcut.new()
+
+var SearchCharacterLimit = 60
 
 var RelevantFiles = {}
-
 
 signal SearchResults(results: Array[SIFB_ResultStruct])
 
@@ -22,12 +25,16 @@ func _enter_tree():
 	EditorFileSystemInstance = EditorInterface.get_resource_filesystem()
 	NodeInstance = NodeBase.instantiate()
 	
+	LoadSavedShortcuts()
 	add_control_to_bottom_panel(NodeInstance, "Search In Files", openingShortcut)
 	await get_tree().process_frame
+	NodeInstance.SIFB_Base = self
 	NodeInstance.request_search.connect(ProcessSearch)
 	connect("SearchResults", NodeInstance.CreateResults)
 	InitializeDirectories()
 	EditorFileSystemInstance.filesystem_changed.connect(InitializeDirectories)
+	
+	
 	
 func _exit_tree():
 	remove_control_from_bottom_panel(NodeInstance)
@@ -38,6 +45,9 @@ func _input(event):
 	if(searchShortcut.matches_event(event)):
 		if(event.is_pressed()):
 			if(!NodeInstance.SearchLineEdit.has_focus()):
+				var codeHighlighted : String = ScriptEditorInstance.get_current_editor().get_base_editor().get_selected_text()
+				if( codeHighlighted != ""):
+					NodeInstance.SearchLineEdit.text = codeHighlighted.substr(0,SearchCharacterLimit)
 				NodeInstance.SearchLineEdit.grab_focus()
 				NodeInstance.SearchLineEdit.select_all()
 			else:
@@ -225,3 +235,52 @@ func GenerateResult(file_string : PackedStringArray, foundResultAtLine : int, fo
 	
 	return toReturn
 	
+	
+func SaveNewShortcuts():
+	var OSEvent : InputEventKey= openingShortcut.events[0]	
+	var SSEvent : InputEventKey= searchShortcut.events[0]	 
+	var ToSave : Dictionary = {}
+	ToSave["OpeningShortcut"] = {}
+	ToSave["OpeningShortcut"]["Ctrl"] = OSEvent.ctrl_pressed
+	ToSave["OpeningShortcut"]["Shift"] = OSEvent.shift_pressed
+	ToSave["OpeningShortcut"]["Alt"] = OSEvent.alt_pressed
+	ToSave["OpeningShortcut"]["Keycode"] = OSEvent.keycode
+	ToSave["SearchShortcut"] = {}
+	ToSave["SearchShortcut"]["Ctrl"] = SSEvent.ctrl_pressed
+	ToSave["SearchShortcut"]["Shift"] = SSEvent.shift_pressed
+	ToSave["SearchShortcut"]["Alt"] = SSEvent.alt_pressed
+	ToSave["SearchShortcut"]["Keycode"] = SSEvent.keycode
+	
+	var save_file =FileAccess.open("res://addons/SIFB/config.json",FileAccess.WRITE)
+	var data = JSON.stringify(ToSave)
+	save_file.store_line(data)
+	
+func LoadSavedShortcuts():
+	openingShortcut.events.append(InputEventKey.new())
+	searchShortcut.events.append(InputEventKey.new())
+	if(not FileAccess.file_exists("res://addons/SIFB/config.json")):
+		openingShortcut.events[0].ctrl_pressed = true
+		openingShortcut.events[0].shift_pressed = true
+		openingShortcut.events[0].keycode = 71 ## G
+		searchShortcut.events[0].ctrl_pressed = true
+		searchShortcut.events[0].keycode = 71 ## G
+		return
+	
+	var save_file = FileAccess.open("res://addons/SIFB/config.json", FileAccess.READ)
+	var json_string = save_file.get_line()
+	var json = JSON.new()
+	json.parse(json_string)
+	var shortcutData = json.data
+	var toAssign :InputEventKey = InputEventKey.new()
+	toAssign.ctrl_pressed = shortcutData["OpeningShortcut"]["Ctrl"]
+	toAssign.shift_pressed = shortcutData["OpeningShortcut"]["Shift"]
+	toAssign.alt_pressed = shortcutData["OpeningShortcut"]["Alt"]
+	toAssign.keycode = shortcutData["OpeningShortcut"]["Keycode"]
+	openingShortcut.events[0]=toAssign
+	
+	var toAssign2 = InputEventKey.new()
+	toAssign2.ctrl_pressed = shortcutData["SearchShortcut"]["Ctrl"]
+	toAssign2.shift_pressed = shortcutData["SearchShortcut"]["Shift"]
+	toAssign2.alt_pressed = shortcutData["SearchShortcut"]["Alt"]
+	toAssign2.keycode = shortcutData["SearchShortcut"]["Keycode"]
+	searchShortcut.events[0]=toAssign2

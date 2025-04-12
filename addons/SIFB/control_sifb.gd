@@ -7,22 +7,24 @@ signal request_search(search: String, WholeWords: bool, MatchCase:bool,
 						F_GDFileType:bool, F_GDShaderFileType:bool, F_TxtFileType:bool, F_JSONFileType:bool, 
 						F_BuiltInScript:bool, F_IncludeAddons:bool, SearchLimit:int)
 						
-@onready var WholeWordsCheckBox : CheckBox = $"VBoxContainer/Search Bar/HBoxContainer/WholeWords"
-@onready var MatchCaseCheckBox : CheckBox = $"VBoxContainer/Search Bar/HBoxContainer/MatchCase"
-@onready var F_GDFileTypeCheckBox : CheckBox = $VBoxContainer/Filters/HBoxContainer/HBoxContainer/GDFileType
-@onready var F_GDShaderFileTypeCheckBox : CheckBox =$VBoxContainer/Filters/HBoxContainer/HBoxContainer/GDShaderFileType
-@onready var F_TxtFileTypeCheckBox : CheckBox = $VBoxContainer/Filters/HBoxContainer/HBoxContainer/TxtFileType
-@onready var F_JSONFileTypeCheckBox : CheckBox =$VBoxContainer/Filters/HBoxContainer/HBoxContainer/JSONFileType
-@onready var F_BuiltInScriptCheckBox : CheckBox = $VBoxContainer/Filters/HBoxContainer/HBoxContainer/BuiltInScript
-@onready var F_IncludeAddonsCheckBox : CheckBox = $VBoxContainer/Filters/HBoxContainer/HBoxContainer/IncludeAddon
-@onready var SearchButton : Button = $"VBoxContainer/Search Bar/HBoxContainer/SearchButton"
-@onready var SearchLineEdit : LineEdit = $"VBoxContainer/Search Bar/HBoxContainer/MarginContainer/SearchLineEdit"
-@onready var ResultList : VBoxContainer = $VBoxContainer/Results/PanelContainer/ScrollContainer/ResultList
-@onready var NoResultLabel : Label = $VBoxContainer/Results/PanelContainer/ScrollContainer/ResultList/NoResult
-@onready var SearchLimit : SpinBox = $VBoxContainer/Filters/HBoxContainer/HBoxContainer2/SpinBox 
+@onready var WholeWordsCheckBox : CheckBox = %WholeWords
+@onready var MatchCaseCheckBox : CheckBox = %MatchCase
+@onready var F_GDFileTypeCheckBox : CheckBox = %GDFileType
+@onready var F_GDShaderFileTypeCheckBox : CheckBox =%GDShaderFileType
+@onready var F_TxtFileTypeCheckBox : CheckBox = %TxtFileType
+@onready var F_JSONFileTypeCheckBox : CheckBox = %JSONFileType
+@onready var F_BuiltInScriptCheckBox : CheckBox = %BuiltInScript
+@onready var F_IncludeAddonsCheckBox : CheckBox = %IncludeAddon
+@onready var SearchButton : Button = %SearchButton
+@onready var SearchLineEdit : LineEdit = %SearchLineEdit
+@onready var ResultList : VBoxContainer = %ResultList
+@onready var NoResultLabel : Label = %NoResult
+@onready var SearchLimit : SpinBox = %SpinBox
+@onready var OptionsButton : Button = %Options
 
 
 var ResultBase = preload("res://addons/SIFB/result_base.tscn")
+var SIFB_Base : SIFB_Plugin 
 
 var PooledResultObjects : Array[SIFB_ResultBase] = []
 var ResultStructs : Array[SIFB_ResultStruct] = []
@@ -30,16 +32,32 @@ var ResultStructs : Array[SIFB_ResultStruct] = []
 var initialNoResultColor: Color = Color("404857")
 var highlightNoResultColor: Color = Color("3d5468")
 
+
 func _ready():
 	await get_tree().process_frame
 	SearchButton.pressed.connect(Search)
+	OptionsButton.pressed.connect(OpenOptionsMenu)
 
 func _input(event):
 	if(event.is_action_pressed("ui_accept")):
 		if(SearchLineEdit.has_focus()):
 			Search()
 			
+func OpenOptionsMenu():
 	
+	var WindowToOpen : Window = Window.new()
+	var size : Vector2 = Vector2(500,200)
+	
+	var OMB : PackedScene = load("res://addons/SIFB/options_menu.tscn")
+	var OM = OMB.instantiate()
+	
+	OM.SIFB = SIFB_Base
+	WindowToOpen.add_child(OM)
+	WindowToOpen.close_requested.connect(WindowToOpen.queue_free)
+	WindowToOpen.gui_embed_subwindows = true
+	EditorInterface.popup_dialog_centered(WindowToOpen, size)
+	pass
+
 func Search():
 	
 	request_search.emit(SearchLineEdit.text, WholeWordsCheckBox.button_pressed, MatchCaseCheckBox.button_pressed,

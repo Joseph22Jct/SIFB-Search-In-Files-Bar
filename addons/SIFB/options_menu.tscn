@@ -1,0 +1,128 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuexn2nyvsdhd"]
+
+[ext_resource type="Texture2D" uid="uid://dsq0f3weshvx4" path="res://addons/SIFB/edit.svg" id="1_rpc6l"]
+[ext_resource type="Script" uid="uid://clhmai5m2wni0" path="res://addons/SIFB/options_menu.gd" id="1_x0pd3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0pd3"]
+bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpc6l"]
+bg_color = Color(0.0706516, 0.0746745, 0.0926106, 1)
+
+[node name="OptionsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x0pd3")
+script = ExtResource("1_x0pd3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="OpeningShortcut" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/OpeningShortcut"]
+layout_mode = 2
+text = "Opening Shortcut:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/OpeningShortcut"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/OpeningShortcut/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpc6l")
+
+[node name="OS_Label" type="Label" parent="VBoxContainer/OpeningShortcut/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ctrl+Shift+G"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/OpeningShortcut/HBoxContainer"]
+layout_mode = 2
+
+[node name="OS_Edit" type="Button" parent="VBoxContainer/OpeningShortcut/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/OpeningShortcut/HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/OpeningShortcut/HBoxContainer/MarginContainer/MarginContainer"]
+modulate = Color(0.878431, 0.878431, 0.878431, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_rpc6l")
+expand_mode = 3
+
+[node name="HBoxContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Search Shortcut:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rpc6l")
+
+[node name="SS_Label" type="Label" parent="VBoxContainer/HBoxContainer3/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Shift+G"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+
+[node name="SS_Edit" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3/HBoxContainer/MarginContainer/MarginContainer"]
+modulate = Color(0.878431, 0.878431, 0.878431, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_rpc6l")
+expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close"

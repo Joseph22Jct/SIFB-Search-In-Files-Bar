@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://67x0eexcg5gd"]
+[gd_scene load_steps=4 format=3 uid="uid://67x0eexcg5gd"]
 
-[ext_resource type="Script" path="res://addons/SIFB/control_sifb.gd" id="1_1pev1"]
+[ext_resource type="Script" uid="uid://bowefi88x3omp" path="res://addons/SIFB/control_sifb.gd" id="1_1pev1"]
+[ext_resource type="Texture2D" uid="uid://cawa625bplkr4" path="res://addons/SIFB/Gear.svg" id="2_7sq0c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_056ql"]
 bg_color = Color(0.145098, 0.168627, 0.203922, 1)
@@ -35,17 +36,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SearchLineEdit" type="LineEdit" parent="VBoxContainer/Search Bar/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="SearchButton" type="Button" parent="VBoxContainer/Search Bar/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Search!"
 
 [node name="WholeWords" type="CheckBox" parent="VBoxContainer/Search Bar/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Whole Words"
 
 [node name="MatchCase" type="CheckBox" parent="VBoxContainer/Search Bar/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Match Case"
 
@@ -63,26 +68,32 @@ layout_mode = 2
 text = "Filter: "
 
 [node name="GDFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = ".gd"
 
 [node name="GDShaderFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = ".gdshader"
 
 [node name="TxtFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = ".txt"
 
 [node name="JSONFileType" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = ".JSON"
 
 [node name="BuiltInScript" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Built-In Script"
 
 [node name="IncludeAddon" type="CheckBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Include Addons"
 
@@ -92,17 +103,42 @@ size_flags_horizontal = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Filters/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 13
 
 [node name="Label" type="Label" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Limit Searches:"
 
 [node name="SpinBox" type="SpinBox" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 max_value = 150.0
 value = 50.0
 alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Options" type="Button" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Filters/HBoxContainer/HBoxContainer2/MarginContainer/MarginContainer"]
+modulate = Color(0.878431, 0.878431, 0.878431, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_7sq0c")
+expand_mode = 3
 
 [node name="Results" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -122,12 +158,14 @@ vertical_scroll_mode = 2
 scroll_deadzone = 8
 
 [node name="ResultList" type="VBoxContainer" parent="VBoxContainer/Results/PanelContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../../../../Search Bar/HBoxContainer/MarginContainer/SearchLineEdit")
 
 [node name="NoResult" type="Label" parent="VBoxContainer/Results/PanelContainer/ScrollContainer/ResultList"]
+unique_name_in_owner = true
 modulate = Color(0.2526, 0.283793, 0.341708, 1)
 layout_mode = 2
 size_flags_vertical = 3

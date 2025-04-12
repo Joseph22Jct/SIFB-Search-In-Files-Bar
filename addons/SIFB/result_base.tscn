@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c10axebk4r6j"]
 
-[ext_resource type="Script" path="res://addons/SIFB/result_base.gd" id="1_lpay1"]
+[ext_resource type="Script" uid="uid://byecttlve0sbv" path="res://addons/SIFB/result_base.gd" id="1_lpay1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y074"]
 bg_color = Color(0.113725, 0.133333, 0.160784, 1)
